@@ -1,0 +1,20 @@
+{
+  "users": [
+    {"id": "user1", "collateral": 10000.00},
+    {"id": "user2", "collateral": 50000.00}
+  ],
+  "prices": [
+    60000.00, 60500.00, 61000.00, 58000.00, 59200.00, 60000.00, 61000.00, 62000.00,  
+    61500.00, 60800.00, 60100.00, 59500.00, 58900.00, 58000.00, 57500.00, 56000.00,  
+    55000.00, 54500.00, 55200.00, 56000.00, 56500.00, 57000.00, 57500.00, 58000.00  
+  ],
+  "events": [
+    {"time": 0, "action": "PlaceOrder", "user": "user1", "side": "Buy", "quantity": 0.5, "price": 59500.00, "leverage": 5},
+    {"time": 0, "action": "PlaceOrder", "user": "user2", "side": "Sell", "quantity": 0.5, "price": 59500.00, "leverage": 5},
+    {"time": 2, "action": "PlaceOrder", "user": "user1", "side": "Buy", "quantity": 0.2, "price": 58500.00, "leverage": 3},
+    {"time": 4, "action": "PlaceOrder", "user": "user2", "side": "Sell", "quantity": 0.3, "price": 59000.00, "leverage": 4},
+    {"time": 8, "action": "ApplyFunding", "user": "user1", "side": "Buy", "quantity": 1, "price": 100000.00, "leverage": 1},
+    {"time": 11, "action": "PriceUpdate",  "user": "user1", "price": 61500.00}
+
+  ]
+}

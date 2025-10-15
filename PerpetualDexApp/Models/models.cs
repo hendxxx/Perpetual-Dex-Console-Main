@@ -30,7 +30,7 @@ namespace PerpDEXSimulator.Models
 
     public class Position
     {
-        public OrderSides? Side { get; set; } 
+        public PositionSides? Side { get; set; } 
         public decimal Quantity { get; set; }
         public decimal EntryPrice { get; set; } 
         public decimal Leverage { get; set; } 
@@ -60,9 +60,9 @@ namespace PerpDEXSimulator.Models
     public class EventConfig
     {
         public int Time { get; set; } 
-        public string? Action { get; set; } 
+        public ActionTypes Action { get; set; } 
         public string? User { get; set; }
-        public string? Side { get; set; } 
+        public OrderSides Side { get; set; } 
         public decimal Quantity { get; set; } 
         public decimal Price { get; set; } 
         public decimal Leverage { get; set; } 
