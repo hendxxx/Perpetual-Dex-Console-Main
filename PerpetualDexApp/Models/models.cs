@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace PerpDEXSimulator.Models
+namespace PerpetualDexApp.Models
 {
     public enum ActionTypes {PlaceOrder, ApplyFunding, PriceUpdate}
      

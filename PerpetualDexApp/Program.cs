@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-using PerpDEXSimulator.Models; 
-using PerpDEXSimulator.Trading;
+using PerpetualDexApp.Models; 
+using PerpetualDexApp.Trading;
 
-namespace PerpDEXSimulator
+namespace PerpetualDexApp
 {
     public class Program
     {

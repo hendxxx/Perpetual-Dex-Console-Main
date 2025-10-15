@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using PerpDEXSimulator.Models;
+using PerpetualDexApp.Models;
 
-namespace PerpDEXSimulator.Trading
+namespace PerpetualDexApp.Trading
 {
     public class OrderBook
     {
