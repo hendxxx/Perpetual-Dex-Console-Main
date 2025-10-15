@@ -276,7 +276,9 @@ namespace PerpDEXSimulator.Trading
 
             user.CurrentPosition = new Position();
         }
-        
-        public Dictionary<string, User> getUsers() => _users;  
+
+        public Dictionary<string, User> GetUsers() => _users;  
+        public List<Trade> GetTradeHistory() => _tradeHistory; 
+
     }
 }

@@ -38,7 +38,7 @@ namespace PerpDEXSimulator
             
             //show user balances
             Console.WriteLine("Initial User Balances:");
-            foreach (var user in _exchange.getUsers().Values) 
+            foreach (var user in _exchange.GetUsers().Values) 
             {
                 Console.WriteLine($"  {user.Id}: {user.Collateral:C}"); 
             }
@@ -59,11 +59,11 @@ namespace PerpDEXSimulator
                 {
                     // apply funding payments
                     Console.WriteLine($"Applying funding for hour {_currentHour}...");
-                    // _exchange.applyFunding(); 
+                    _exchange.ApplyFunding(); 
                 }
                 
                 // show summary hourly
-                // displayHourlySummary(); 
+                DisplayHourlySummary(); 
             }
 
             //Simulation complete
@@ -99,45 +99,111 @@ namespace PerpDEXSimulator
             }
             return null;
         }
-        
-        private static void ProcessScheduledEvents(List<EventConfig> events) 
+
+        private static void ProcessScheduledEvents(List<EventConfig> events)
         {
             foreach (var evt in events)
             {
-                switch (evt.Action) 
+                switch (evt.Action)
                 {
                     case ActionTypes.PlaceOrder:
                         var order = new Order
                         {
-                            UserId = evt.User, 
-                            Side = evt.Side, 
-                            Quantity = evt.Quantity, 
-                            Price = evt.Price, 
-                            Leverage = evt.Leverage, 
+                            UserId = evt.User,
+                            Side = evt.Side,
+                            Quantity = evt.Quantity,
+                            Price = evt.Price,
+                            Leverage = evt.Leverage,
                             PlacedTime = DateTime.UtcNow
                         };
-                        _exchange?.PlaceOrder(order); 
+                        _exchange?.PlaceOrder(order);
                         break;
                     case ActionTypes.PriceUpdate:
-                        if (evt.Price > 0) 
+                        if (evt.Price > 0)
                         {
-                            Console.WriteLine($"--- Event: Price Updated to {evt.Price:C} ---"); 
-                            _exchange?.SetMarkPrice(evt.Price); 
+                            Console.WriteLine($"--- Event: Price Updated to {evt.Price:C} ---");
+                            _exchange?.SetMarkPrice(evt.Price);
                         }
                         else
                         {
-                            Console.WriteLine($"Warning: PriceUpdate event specified with invalid price: {evt.Price}"); 
+                            Console.WriteLine($"Warning: PriceUpdate event specified with invalid price: {evt.Price}");
                         }
                         break;
                     case ActionTypes.ApplyFunding:
                         Console.WriteLine($"--- Event: Applying Funding ---");
-                        _exchange?.ApplyFunding(); 
+                        _exchange?.ApplyFunding();
                         break;
                     default:
-                        Console.WriteLine($"Warning: Unhandled event action '{evt.Action}' at hour {evt.Time}."); 
+                        Console.WriteLine($"Warning: Unhandled event action '{evt.Action}' at hour {evt.Time}.");
                         break;
                 }
             }
+
+        }
+        private static void DisplayHourlySummary() 
+        {
+            Console.WriteLine($"\n--- Hourly Summary (End of Hour {_currentHour}) ---");
+            if (_exchange != null)
+            {
+                foreach (var user in _exchange.GetUsers().Values)
+                {
+                    Console.WriteLine($"  User: {user.Id}, Collateral: {user.Collateral:C}"); 
+                    if (user.CurrentPosition.IsOpen)
+                    {
+                        var pos = user.CurrentPosition;
+                        Console.WriteLine($"    Position: {pos.Side} {pos.Quantity} BTC, Entry: {pos.EntryPrice:C}, PNL: {pos.UnrealizedPnl:C}, maine. Margin: {pos.MaintenanceMarginRequirement:C}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("    No open position.");
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Exchange is not initialized.");
+            }
+            Console.WriteLine("------------------------------------------");
+        }
+
+        private static void GenerateFinalReport() 
+        {
+            Console.WriteLine("\n--- Final Simulation Report ---");
+            Console.WriteLine("Final User Balances:");
+            if (_exchange != null)
+            {
+                foreach (var user in _exchange.GetUsers().Values)
+                {
+                    Console.WriteLine($"  {user.Id}: {user.Collateral:C}"); 
+                }
+            }
+            else
+            {
+                Console.WriteLine("Exchange is not initialized.");
+            }
+
+            Console.WriteLine("\nTrade History:");
+            if (_exchange != null)
+            {
+                var tradeHistory = _exchange.GetTradeHistory(); 
+                if (tradeHistory.Any())
+                {
+                    foreach (var trade in tradeHistory)
+                    {
+                        Console.WriteLine($"  Trade {trade.Id}: {trade.BuyerId} bought {trade.Quantity} BTC at {trade.Price:C} from {trade.SellerId} at {trade.Timestamp}"); 
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("  No trades executed.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Exchange is not initialized.");
+            }
+
+            Console.WriteLine("------------------------------------------");
         }
     }   
 }
