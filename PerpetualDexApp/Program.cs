@@ -10,11 +10,11 @@ namespace PerpetualDexApp
 {
     public class Program
     {
-        private static Exchange? _exchange;
-        private static List<decimal>? _priceOracleData;
-        private static List<EventConfig>? _simulationEvents;
-        private static int _currentHour = 0;
-        private const int fundingIntervalHours = 8;
+        public static Exchange? _exchange;
+        public static List<decimal>? _priceOracleData;
+        public static List<EventConfig>? _simulationEvents;
+        public static int _currentHour = 0;
+        public const int fundingIntervalHours = 8;
 
         public static void Main(string[] args)
         {
@@ -25,7 +25,7 @@ namespace PerpetualDexApp
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
             // load input.json file
-            var config = loadConfiguration(baseDirectory + "input.json");
+            var config = LoadConfiguration(baseDirectory + "input.json");
             if (config == null) return;
 
             // Initialize users, and price data and events
@@ -70,10 +70,10 @@ namespace PerpetualDexApp
             Console.WriteLine("\n--- Simulation Complete ---");
             
             //Generate final report
-            // generateFinalReport(); 
+            GenerateFinalReport(); 
         }
 
-        private static SimulatorConfig? loadConfiguration(string filePath)
+        public static SimulatorConfig? LoadConfiguration(string filePath)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace PerpetualDexApp
             return null;
         }
 
-        private static void ProcessScheduledEvents(List<EventConfig> events)
+        public static void ProcessScheduledEvents(List<EventConfig> events)
         {
             foreach (var evt in events)
             {
@@ -140,7 +140,7 @@ namespace PerpetualDexApp
             }
 
         }
-        private static void DisplayHourlySummary() 
+        public static void DisplayHourlySummary() 
         {
             Console.WriteLine($"\n--- Hourly Summary (End of Hour {_currentHour}) ---");
             if (_exchange != null)
@@ -166,7 +166,7 @@ namespace PerpetualDexApp
             Console.WriteLine("------------------------------------------");
         }
 
-        private static void GenerateFinalReport() 
+        public static void GenerateFinalReport() 
         {
             Console.WriteLine("\n--- Final Simulation Report ---");
             Console.WriteLine("Final User Balances:");
