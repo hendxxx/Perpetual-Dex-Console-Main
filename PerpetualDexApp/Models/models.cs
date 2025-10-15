@@ -47,7 +47,7 @@ namespace PerpDEXSimulator.Models
         public string? SellerId { get; set; }
         public decimal Quantity { get; set; } 
         public decimal Price { get; set; } 
-        public Order? OuyOrder { get; set; } 
+        public Order? BuyOrder { get; set; } 
         public Order? SellOrder { get; set; } 
     }
 
