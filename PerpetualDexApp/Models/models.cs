@@ -12,7 +12,7 @@ namespace PerpDEXSimulator.Models
     public class User
     {
         public string? Id { get; set; } 
-        public decimal Ccollateral { get; set; } 
+        public decimal Collateral { get; set; } 
         public Position CurrentPosition { get; set; } = new Position(); 
     }
 
