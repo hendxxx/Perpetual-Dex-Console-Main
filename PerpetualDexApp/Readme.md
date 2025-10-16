@@ -33,7 +33,7 @@ for example:
 ```
 
 Example Result:
-```java
+```bash
 Perpetual Futures Trading Simulator (C#)
 ------------------------------------------
 Configuration loaded successfully.
